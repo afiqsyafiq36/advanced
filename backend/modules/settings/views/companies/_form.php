@@ -31,14 +31,14 @@ use dosamigos\datepicker\DatePicker;
             // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
             'clientOptions' => [
                 'autoclose' => true,
-                'format' => 'yyyy-m-d',
+                'format' => 'yyyy-mm-dd',
             ]
         ]
     ); ?>
 
     <?= $form->field($model, 'company_created_date')->textInput() ?>
 
-    <?= $form->field($model, 'company_status')->dropDownList(['active' => 'Active', 'inactive' => 'Inactive',], ['prompt' => '']) ?>
+    <?= $form->field($model, 'company_status')->dropDownList(['active' => 'Active', 'inactive' => 'Inactive',], ['prompt' => 'Select Status..']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
