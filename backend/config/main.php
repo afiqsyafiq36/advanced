@@ -38,6 +38,11 @@ return [
                 ],
             ],
         ],
+        //Role Based Access Control
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
