@@ -93,6 +93,9 @@ class BranchesController extends Controller
      */
     public function actionLists($id)
     {
+        /**
+         * Yang list daripada Dependent dropdown
+         */
         $countBranches = Branches::find()->where(['companies_company_id' => $id])->count();
         $branches = Branches::find()->where(['companies_company_id' => $id])->all();
 

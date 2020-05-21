@@ -14,6 +14,8 @@ use backend\models\Branches;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php //Check BranchesController untuk actionLists ?>
+
     <?= $form->field($model, 'companies_company_id')->dropDownList(
         ArrayHelper::map(Companies::find()->all(), 'company_id', 'company_name'),
         [
