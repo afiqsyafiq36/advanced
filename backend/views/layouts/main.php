@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -25,6 +26,24 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+
+<?php
+            yii\bootstrap\Modal::begin([
+                // 'headerOptions' => ['id' => 'modalHeader'],
+                'header' => '<h4>Branches</h4>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'closeButton'   => [
+                    'tag'   => 'button',
+                    'label' => '<span aria-hidden="true">×</span>'
+                ],
+                //keeps from closing modal with esc key or by clicking out of the modal.
+                // user must click cancel or X to close
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+            ]);
+            echo '<div id="modalContent"><div style="text-align:center"><img src="'.Url::to('@web/uploads/loader.gif').'"></div></div>';
+            yii\bootstrap\Modal::end();
+?>
 
 <div class="wrap">
     <?php
@@ -70,9 +89,12 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+        <div class="content" id="main-content">
         <?= $content ?>
+        </div>
     </div>
 </div>
+
 
 <footer class="footer">
     <div class="container">

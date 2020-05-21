@@ -73,14 +73,37 @@ class BranchesController extends Controller
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->branch_id]);
             }
-
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            elseif (Yii::$app->request->isAjax) {
+                return $this->renderAjax('create', ['model' => $model]);
+            }
+            else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         }
         else 
         {
             throw new ForbiddenHttpException('Maaf, anda tidak dibenarkan mengakses halaman ini');
+        }
+    }
+
+    /**
+     * Departments Dependent dropdownlist post an id here
+     */
+    public function actionLists($id)
+    {
+        $countBranches = Branches::find()->where(['companies_company_id' => $id])->count();
+        $branches = Branches::find()->where(['companies_company_id' => $id])->all();
+
+        if ($countBranches > 0) {
+            foreach ($branches as $branch) 
+            {
+                echo "<option value = '".$branch->branch_id."'>".$branch->branch_name."</option>";
+            }
+        }
+        else {
+            echo "<option>No Records</option>";
         }
     }
 
@@ -97,11 +120,15 @@ class BranchesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->branch_id]);
+        } 
+        elseif (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', ['model' => $model]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

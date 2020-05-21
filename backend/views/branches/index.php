@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BranchesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Branches', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value' => Url::to(['branches/create']), 'title' => 'Branches', 'class' => 'showModalButton btn btn-success']); ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
