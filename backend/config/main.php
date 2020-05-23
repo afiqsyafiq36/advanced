@@ -46,6 +46,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        //Sending email with attachment
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
