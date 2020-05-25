@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BranchesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,11 +17,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Branches', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Create Branches', ['value' => Url::to(['branches/create']), 'class' => 'btn btn-success', 'id' => 'modalButton2']) ?>
         <?= Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value' => Url::to(['branches/create']), 'title' => 'Branches', 'class' => 'showModalButton btn btn-success']); ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php
+    //modal popup windows for form DoingITeasychannel
+        Modal::begin([
+            'header' => '<h4>Branches</h4>',
+            'id' => 'modal2',
+            'size' => 'modal-lg',
+        ]);
+        echo "<div id='modalContent2'></div>";
+        Modal::end();
+    ?>
 
     <?php Pjax::begin(); ?>
 
@@ -48,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'branch_name',
             'branch_address',
             'branch_created_date',
-            //'branch_status',
+            'branch_status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
