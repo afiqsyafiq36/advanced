@@ -64,6 +64,7 @@ AppAsset::register($this);
             ]
         ],
         ['label' => 'Departments', 'url' => ['/departments/index']],
+        ['label' => 'Sending Emails', 'url' => ['/emails/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
