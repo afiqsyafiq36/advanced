@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::button('Create Branches', ['value' => Url::to(['branches/create']), 'class' => 'btn btn-success', 'id' => 'modalButton2']) ?>
+        <?= Html::button('Create Branches', ['value' => Url::to(['branches/create']), 'title' => 'Branches', 'class' => 'btn btn-success', 'id' => 'modalButton2']) ?>
         <?= Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['value' => Url::to(['branches/create']), 'title' => 'Branches', 'class' => 'showModalButton btn btn-success']); ?>
     </p>
 
@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     //modal popup windows for form DoingITeasychannel
         Modal::begin([
-            'header' => '<h4>Branches</h4>',
+            'headerOptions' => ['id' => 'modalHeader2'],
+            // 'header' => '<h4>Branches</h4>',
             'id' => 'modal2',
             'size' => 'modal-lg',
         ]);
