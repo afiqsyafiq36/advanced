@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Branches;
 use Yii;
 use backend\models\Companies;
 use backend\models\CompaniesSearch;
@@ -68,24 +69,37 @@ class CompaniesController extends Controller
         if (Yii::$app->user->can('create-company')) 
         {
             $model = new Companies();
+            $branch = new Branches();
 
-            if ($model->load(Yii::$app->request->post())) {
+            if ($model->load(Yii::$app->request->post()) && $branch->load(Yii::$app->request->post())) {
 
                 //get the instatnce of the uploaded file
                 $imageName = $model->company_name;
-                $model->file = UploadedFile::getInstance($model, 'file');
-                $model->file->saveAs('uploads/'.$imageName.'.'.$model->file->extension);
+                
+                //checking for if logo field is null
+                if (!empty($model->file)) 
+                {
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->file->saveAs('uploads/' . $imageName . '.' . $model->file->extension);
 
-                //save the path in the db column
-                $model->logo = 'uploads/'.$imageName.'.'.$model->file->extension;
+                    //save the path in the db column
+                    $model->logo = 'uploads/' . $imageName . '.' . $model->file->extension;
+                }
                 
                 $model->company_created_date = date('Y-m-d h:m:s');
                 $model->save();
+
+                //branches here
+                $branch->companies_company_id = $model->company_id;
+                $branch->branch_created_date = date('Y-m-d h:m:s');
+                $branch->save();
+
                 return $this->redirect(['view', 'id' => $model->company_id]);
             }
 
             return $this->render('create', [
                 'model' => $model,
+                'branch' => $branch,
             ]);
         }
         else 
